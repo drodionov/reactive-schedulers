@@ -10,7 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 @Slf4j
 @AllArgsConstructor
@@ -26,12 +26,9 @@ public class ReactiveSchedulersApplication implements CommandLineRunner {
   @Override
   public void run(String... args) {
     logCurrentThread("Before the stream");
-    Mono.just(42)
-        .delayElement(Duration.ofMillis(100))
-        .doOnNext(data -> {
-          log.info(data.toString());
-          logCurrentThread("In Mono");
-        })
+    Flux.range(1, 10)
+        .delayElements(Duration.ofMillis(50))
+        .doOnNext(data -> logCurrentThread("In Flux with value " + data))
         .subscribe();
     logCurrentThread("After the stream");
 
