@@ -1,5 +1,7 @@
 package ru.stmlabs.demo.reactiveschedulers;
 
+import static ru.stmlabs.demo.reactiveschedulers.utils.LoggerUtils.logCurrentThread;
+
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +20,6 @@ public class ReactiveSchedulersApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-
+    logCurrentThread();
   }
 }
